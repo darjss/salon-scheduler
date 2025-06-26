@@ -1,8 +1,8 @@
-import { TabBarIcon } from "@/components/tabbar-icon";
-import { useColorScheme } from "@/lib/use-color-scheme";
 import { Tabs } from "expo-router";
+import { TabBarIcon } from "@/components/shared/TabBarIcon";
+import { useColorScheme } from "@/lib/use-color-scheme";
 
-export default function TabLayout() {
+export default function CustomerTabLayout() {
   const { isDarkColorScheme } = useColorScheme();
 
   return (
@@ -33,12 +33,33 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="bookings"
         options={{
-          title: "Explore",
+          title: "Bookings",
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="compass" color={color} />
+            <TabBarIcon name="calendar" color={color} />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="favorites"
+        options={{
+          title: "Favorites",
+          tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="notifications"
+        options={{
+          title: "Notifications",
+          tabBarIcon: ({ color }) => <TabBarIcon name="bell" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
     </Tabs>
