@@ -1,29 +1,55 @@
-import { TouchableOpacity, Text, TouchableOpacityProps } from "react-native";
 import React from "react";
-import clsx from "clsx";
+import {
+  TouchableOpacity,
+  Text,
+  TouchableOpacityProps,
+  StyleSheet,
+  ActivityIndicator,
+  View,
+} from "react-native";
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
-  className?: string;
-  textClassName?: string;
+  style?: any;
+  textStyle?: any;
+  loading?: boolean;
 }
 
 export const Button = ({
   title,
-  className,
-  textClassName,
+  style,
+  textStyle,
+  loading,
   ...props
 }: ButtonProps) => {
   return (
     <TouchableOpacity
-      className={clsx("bg-black py-3 rounded-md", className)}
+      style={[styles.button, style, props.disabled && styles.disabled]}
+      activeOpacity={0.8}
       {...props}
     >
-      <Text
-        className={clsx("text-white text-center font-medium", textClassName)}
-      >
-        {title}
-      </Text>
+      {loading ? (
+        <ActivityIndicator color="#fff" />
+      ) : (
+        <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: "#000",
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: "#fff",
+    textAlign: "center",
+    fontWeight: "500",
+    fontSize: 16,
+  },
+  disabled: {
+    opacity: 0.6,
+  },
+});

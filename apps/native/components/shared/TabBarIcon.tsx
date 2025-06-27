@@ -25,6 +25,5 @@ const iconMap: Record<IconName, LucideIcon> = {
 
 export const TabBarIcon = ({ name, color }: TabBarIconProps) => {
   const Icon = iconMap[name];
-
   return <Icon color={color} size={22} strokeWidth={2} />;
 };

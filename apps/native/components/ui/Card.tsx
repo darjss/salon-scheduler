@@ -1,22 +1,28 @@
-import { View, ViewProps } from "react-native";
+import { View, ViewProps, StyleSheet } from "react-native";
 import React from "react";
-import clsx from "clsx";
 
 interface CardProps extends ViewProps {
-  className?: string;
+  style?: any;
   children: React.ReactNode;
 }
 
-export const Card = ({ className, children, ...props }: CardProps) => {
+export const Card = ({ style, children, ...props }: CardProps) => {
   return (
-    <View
-      className={clsx(
-        "bg-white dark:bg-neutral-800 rounded-2xl shadow-md p-4",
-        className
-      )}
-      {...props}
-    >
+    <View style={[styles.card, style]} {...props}>
       {children}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3,
+    padding: 16,
+  },
+});

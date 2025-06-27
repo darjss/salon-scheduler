@@ -1,4 +1,4 @@
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, View, StyleSheet } from "react-native";
 import React from "react";
 
 interface LoadingSpinnerProps {
@@ -13,8 +13,16 @@ export const LoadingSpinner = ({
   centered = false,
 }: LoadingSpinnerProps) => {
   return (
-    <View className={centered ? "flex-1 justify-center items-center" : ""}>
+    <View style={centered ? styles.centered : undefined}>
       <ActivityIndicator size={size} color={color} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

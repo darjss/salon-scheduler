@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 interface HeaderProps {
   title: string;
@@ -9,15 +9,31 @@ interface HeaderProps {
 
 export const Header = ({ title, subtitle, right }: HeaderProps) => {
   return (
-    <View className="flex-row items-center justify-between mb-4">
+    <View style={styles.headerRow}>
       <View>
-        <Text className="text-2xl font-bold text-foreground">{title}</Text>
-        {subtitle && (
-          <Text className="text-sm text-muted-foreground mt-1">{subtitle}</Text>
-        )}
+        <Text style={styles.title}>{title}</Text>
+        {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
       </View>
-
       {right && <View>{right}</View>}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#222", // or your theme color
+  },
+  subtitle: {
+    fontSize: 14,
+    color: "#6b7280", // muted color
+    marginTop: 4,
+  },
+});

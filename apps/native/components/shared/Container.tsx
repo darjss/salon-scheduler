@@ -1,20 +1,21 @@
-import { View, ViewProps } from "react-native";
+import { View, ViewProps, StyleSheet } from "react-native";
 import React from "react";
-import clsx from "clsx";
 
 interface ContainerProps extends ViewProps {
   children: React.ReactNode;
-  className?: string;
+  style?: any;
 }
 
-export const Container = ({
-  children,
-  className,
-  ...props
-}: ContainerProps) => {
+export const Container = ({ children, style, ...props }: ContainerProps) => {
   return (
-    <View className={clsx("px-4", className)} {...props}>
+    <View style={[styles.container, style]} {...props}>
       {children}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 16,
+  },
+});

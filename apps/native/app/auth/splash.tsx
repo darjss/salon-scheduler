@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { router } from "expo-router";
 import { Container } from "@/components/shared/Container";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
@@ -9,28 +9,52 @@ export default function SplashScreen() {
   const { isLoading, isAuthenticated } = useAuth();
 
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
     if (!isLoading && !isAuthenticated) {
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         router.replace("/auth/login");
       }, 2000);
-
-      return () => clearTimeout(timer);
     }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, [isLoading, isAuthenticated]);
 
   return (
     <Container>
-      <View className="flex-1 justify-center items-center bg-primary px-6">
-        <View className="items-center">
-          <Text className="text-4xl font-bold text-white mb-2 text-center">
-            💅 Beauty Salon
-          </Text>
-          <Text className="text-lg text-primary-foreground/80 text-center mb-8">
-            Your beauty, our passion
-          </Text>
+      <View style={styles.wrapper}>
+        <View style={styles.content}>
+          <Text style={styles.title}>💅 Beauty Salon</Text>
+          <Text style={styles.subtitle}>Your beauty, our passion</Text>
           <LoadingSpinner size="large" color="white" />
         </View>
       </View>
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#6366f1",
+    paddingHorizontal: 24,
+  },
+  content: {
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#ffffff",
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  subtitle: {
+    fontSize: 18,
+    color: "rgba(255, 255, 255, 0.8)",
+    textAlign: "center",
+    marginBottom: 32,
+  },
+});

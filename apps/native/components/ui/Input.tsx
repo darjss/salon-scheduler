@@ -1,20 +1,28 @@
-import { TextInput, TextInputProps } from "react-native";
+import { TextInput, TextInputProps, StyleSheet } from "react-native";
 import React from "react";
-import clsx from "clsx";
 
 interface InputProps extends TextInputProps {
-  className?: string;
+  style?: any;
 }
 
-export const Input = ({ className, ...props }: InputProps) => {
+export const Input = ({ style, ...props }: InputProps) => {
   return (
     <TextInput
-      className={clsx(
-        "border border-gray-300 rounded-md px-4 py-2 text-base text-black dark:text-white",
-        className
-      )}
+      style={[styles.input, style]}
       placeholderTextColor="#9ca3af"
       {...props}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    borderWidth: 1,
+    borderColor: "#d1d5db",
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    fontSize: 16,
+    color: "#000",
+  },
+});

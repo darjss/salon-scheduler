@@ -33,16 +33,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setUser(storedUser);
           // Redirect to appropriate screen based on role
           if (storedUser.role === "customer") {
-            router.replace("/(customer)");
+            router.replace("/customer");
           } else if (storedUser.role === "staff") {
-            router.replace("/(staff)");
+            router.replace("/staff");
           }
         } else {
-          router.replace("/(auth)/splash");
+          router.replace("/auth/splash");
         }
       } catch (error) {
         console.error("Failed to initialize auth:", error);
-        router.replace("/(auth)/splash");
+        router.replace("/auth/splash");
       } finally {
         setIsLoading(false);
       }

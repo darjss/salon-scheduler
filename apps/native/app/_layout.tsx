@@ -1,60 +1,49 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
-import {
-  DarkTheme,
-  DefaultTheme,
-  type Theme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { ThemeProvider, DefaultTheme } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import "../global.css";
+import "./global.css";
 import { queryClient } from "@/utils/trpc";
-import { NAV_THEME } from "@/lib/constants";
 import React, { useRef } from "react";
-import { useColorScheme } from "@/lib/use-color-scheme";
 import { Platform } from "react-native";
 import { AuthProvider } from "@/lib/context/AuthContext";
 
-const LIGHT_THEME: Theme = {
+const APP_THEME = {
   ...DefaultTheme,
-  colors: NAV_THEME.light,
-};
-const DARK_THEME: Theme = {
-  ...DarkTheme,
-  colors: NAV_THEME.dark,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "#ffffff",
+    card: "#f9fafb",
+    text: "#111827",
+    primary: "#6366f1",
+    border: "#e5e7eb",
+    notification: "#facc15",
+  },
 };
 
 export const unstable_settings = {
-  initialRouteName: "auth",
+  initialRouteName: "customer",
 };
 
 export default function RootLayout() {
   const hasMounted = useRef(false);
-  const { colorScheme, isDarkColorScheme } = useColorScheme();
-  const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
 
   React.useLayoutEffect(() => {
-    if (hasMounted.current) {
-      return;
-    }
+    if (hasMounted.current) return;
 
     if (Platform.OS === "web") {
       document.documentElement.classList.add("bg-background");
     }
-    setIsColorSchemeLoaded(true);
+
     hasMounted.current = true;
   }, []);
-
-  if (!isColorSchemeLoaded) {
-    return null;
-  }
 
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-          <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+        <ThemeProvider value={APP_THEME}>
+          <StatusBar style="dark" />
           <GestureHandlerRootView style={{ flex: 1 }}>
             <Stack screenOptions={{ headerShown: false }}>
               <Stack.Screen name="auth" />

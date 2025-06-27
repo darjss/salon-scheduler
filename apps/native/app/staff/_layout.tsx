@@ -15,7 +15,7 @@ export default function StaffLayout() {
   }
 
   if (!user || user.role !== "staff") {
-    return <Redirect href="/(auth)/splash" />;
+    return <Redirect href="/auth/splash" />;
   }
 
   return (

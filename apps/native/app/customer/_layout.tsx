@@ -15,7 +15,7 @@ export default function CustomerLayout() {
   }
 
   if (!user || user.role !== "customer") {
-    return <Redirect href="/(auth)/splash" />;
+    return <Redirect href="/auth/splash" />;
   }
 
   return (
